@@ -82,6 +82,7 @@ pushd package/community
 
 # Add OpenClash
 #git clone --depth=1 -b master https://github.com/vernesong/OpenClash
+svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash
 
 # Add luci-app-onliner (need luci-app-nlbwmon)
 #git clone --depth=1 https://github.com/rufengsuixing/luci-app-onliner
