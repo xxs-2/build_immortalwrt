@@ -7,18 +7,18 @@
 #
 #
 
-name: build immortalwrt msg1500
+name: build immortalwrt 360T7(108M,Luci1806)
 
 on: 
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/vb1980/immortalwrt.git
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/padavanonly/immortalwrtARM
+  REPO_BRANCH: mt7981
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/msg1500.config
+  CONFIG_FILE: config/360T7_1806.config
   DIY_P1_SH: script/diy-part1.sh
-  DIY_P2_SH: script/diy-part2_msg1500.sh
+  DIY_P2_SH: script/diy-part2_360T7.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_WETRANSFER: true
@@ -81,12 +81,6 @@ jobs:
         rm -rf feeds/luci/applications/luci-app-openclash
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: Custom openclash
-      run: |
-        cd openwrt/packages/community/luci-app-openclash
-        cp -f custom/openclash/status.htm ./luasrc/view/openclash
-        cp -f custom/openclash/client.lua ./luasrc/model/cbi/openclash
-
     - name: Download packages
       id: package
       run: |
@@ -136,7 +130,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.STATUS == 'success' && !cancelled()
       with:
-        name: msg1500-5.10-immortalwrt闭源固件
+        name: 360T7_108M_LUCI1806
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to WeTransfer
@@ -151,7 +145,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "RELEASETAG=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_ENV
+        echo "RELEASETAG=$(date +"%Y.%m.%d-%H%M")"
         touch release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ env.URL }})" >> release.txt
         echo "STATUS=success" >> $GITHUB_ENV
@@ -162,7 +156,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.RELEASETAG }}
+        tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 
