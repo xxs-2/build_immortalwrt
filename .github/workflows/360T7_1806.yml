@@ -111,7 +111,6 @@ jobs:
         path: openwrt/bin
 
     - name: Cleanup bin
-      id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd openwrt/bin/targets/*/*
@@ -134,7 +133,6 @@ jobs:
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to WeTransfer
-      id: wetransfer
       if: env.STATUS == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
@@ -142,7 +140,6 @@ jobs:
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         echo "URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
     - name: Create release tag
-      id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
         echo "RELEASETAG=$(date +"%Y.%m.%d-%H%M")"
@@ -152,7 +149,7 @@ jobs:
 
     - name: Upload firmware to release
       uses: softprops/action-gh-release@v1
-      if: env.STATUS == 'success' && !cancelled()
+      if: env.STATUS == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
