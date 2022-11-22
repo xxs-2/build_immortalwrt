@@ -83,9 +83,7 @@ jobs:
 
     - name: Custom openclash
       run: |
-        cd openwrt/packages/community
-        ls
-        cd openwrt/packages/community/luci-app-openclash
+        cd openwrt/package/community/luci-app-openclash
         cp -f custom/openclash/status.htm ./luasrc/view/openclash
         cp -f custom/openclash/client.lua ./luasrc/model/cbi/openclash
 
