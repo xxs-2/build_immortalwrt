@@ -164,7 +164,7 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: Remove obsoleted artifacts
-      uses: c-hive/gha-remove-artifacts@v1.2.0
+      uses: c-hive/gha-remove-artifacts@v1.3.0
       with:
         age: '1 day'
         skip-recent: 3
