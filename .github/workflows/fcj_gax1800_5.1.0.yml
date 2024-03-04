@@ -13,15 +13,14 @@ on:
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/vb1980/immortalwrt.git
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/vb1980/padavanonly_immortalwrt.git
+  REPO_BRANCH: mt7915_mtwifi
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/fcj_gax1800.config
   DIY_P1_SH: script/diy-part1.sh
   DIY_P2_SH: script/diy-part2_fcjgax1800.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
-  UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
 
@@ -81,12 +80,6 @@ jobs:
         rm -rf feeds/luci/applications/luci-app-openclash
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: Custom openclash
-      run: |
-        #cd openwrt/package/community/luci-app-openclash
-        #cp -f $GITHUB_WORKSPACE/custom/openclash/status.htm ./luasrc/view/openclash
-        #cp -f $GITHUB_WORKSPACE/custom/openclash/client.lua ./luasrc/model/cbi/openclash
-
     - name: Download packages
       id: package
       run: |
@@ -138,13 +131,6 @@ jobs:
         name: FCJ_G-AX1800-immortalwrt闭源固件
         path: ${{ env.FIRMWARE }}
 
-    - name: Upload firmware to WeTransfer
-      if: env.STATUS == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        echo "URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
     - name: Create release tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
