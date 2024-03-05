@@ -13,13 +13,13 @@
 sed -i 's/192.168.6.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 
 # 修改主机名字，把ImmortalWrt修改你喜欢的就行（不能纯数字或者使用中文）
-sed -i 's/ImmortalWrt/FCJ-GAX1800/g' package/base-files/files/bin/config_generate
+sed -i 's/ImmortalWrt/Hair-Har20S2U1/g' package/base-files/files/bin/config_generate
 
 # 修改闭源驱动2G wifi名称
-sed -i 's/SSID1=CR660X_2.4G/SSID1=G-AX1800/g' package/emortal/mtkhqos_util/files/mt7615.1.2G.dat
+sed -i 's/SSID1=CR660X_2.4G/SSID1=Har-20S2U1/g' package/emortal/mtkhqos_util/files/mt7615.1.2G.dat
 
 # 修改闭源驱动5G wifi名称
-sed -i 's/SSID1=Openwrt_5G/SSID1=G-AX1800-5G/g' package/emortal/mtkhqos_util/files/mt7615.1.5G.dat
+sed -i 's/SSID1=Openwrt_5G/SSID1=Har-20S2U1-5G/g' package/emortal/mtkhqos_util/files/mt7615.1.5G.dat
 
 # 修改闭源驱动5G wifi信道
 sed -i 's/Channel=44/Channel=149/g' package/emortal/mtkhqos_util/files/mt7615.1.5G.dat
