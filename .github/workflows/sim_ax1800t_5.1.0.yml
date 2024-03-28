@@ -78,6 +78,7 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         rm -rf feeds/luci/applications/luci-app-openclash
+        rm -rf feeds/luci/luci-app-openclash
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: Download packages
