@@ -128,7 +128,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.STATUS == 'success' && !cancelled()
       with:
-        name: FCJ_G-AX1800-immortalwrt闭源固件
+        name: Hair_Har-20S2U1-immortalwrt闭源固件
         path: ${{ env.FIRMWARE }}
 
     - name: Create release tag

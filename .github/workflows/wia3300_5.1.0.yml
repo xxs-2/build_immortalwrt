@@ -7,7 +7,7 @@
 #
 #
 
-name: build immortalwrt wia3300-10
+name: build immortalwrt Skspruce WIA3300-10
 
 on: 
   workflow_dispatch:
@@ -135,7 +135,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.STATUS == 'success' && !cancelled()
       with:
-        name: wia3300-5.10-immortalwrt闭源固件
+        name: Skspruce_WIA3300-10-immortalwrt闭源固件
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to WeTransfer

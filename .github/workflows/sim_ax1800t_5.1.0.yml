@@ -128,7 +128,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.STATUS == 'success' && !cancelled()
       with:
-        name: FCJ_G-AX1800-immortalwrt闭源固件
+        name: SIM_AX1800T-immortalwrt闭源固件
         path: ${{ env.FIRMWARE }}
 
     - name: Create release tag
