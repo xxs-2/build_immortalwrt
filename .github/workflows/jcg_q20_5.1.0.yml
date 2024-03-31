@@ -29,6 +29,22 @@ jobs:
     runs-on: ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
+    - name: Free Disk Space (Ubuntu)
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # this might remove tools that are actually needed,
+        # if set to "true" but frees about 6 GB
+        tool-cache: false
+        
+        # all of these default to true, but feel free to set to
+        # "false" if necessary for your workflow
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+        
     - name: Checkout
       uses: actions/checkout@main
 
@@ -52,6 +68,13 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
+    - name: Load cache
+      uses: klever1988/cachewrtbuild@main
+      with:
+        ccache: 'true'
+        mixkey: 'mt7915'
+        prefix: ${{ github.workspace }}/openwrt
+        
     - name: Load feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
@@ -151,7 +174,7 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: Remove obsoleted artifacts
-      uses: c-hive/gha-remove-artifacts@v1.3.0
+      uses: Bonnie2980/gha-remove-artifacts@master
       with:
         age: '1 day'
         skip-recent: 3
