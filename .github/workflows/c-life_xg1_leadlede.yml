@@ -7,17 +7,17 @@
 #
 #
 
-name: build immortalwrt C-Life XG1
+name: build leanlede for C-Life XG1
 
 on: 
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/vb1980/padavanonly_immortalwrt.git
-  REPO_BRANCH: mt7915_mtwifi
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/c-life_xg1.config
-  DIY_P1_SH: script/diy-part1.sh
+  DIY_P1_SH: script/diy-part1_clifexg1.sh
   DIY_P2_SH: script/diy-part2_clifexg1.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
@@ -100,8 +100,6 @@ jobs:
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
-        rm -rf feeds/luci/applications/luci-app-openclash
-        rm -rf feeds/luci/luci-app-openclash
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: Download packages
@@ -152,7 +150,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.STATUS == 'success' && !cancelled()
       with:
-        name: C-Life_XG1-immortalwrt闭源固件
+        name: C-Life_XG1-LeanLede
         path: ${{ env.FIRMWARE }}
 
     - name: Create release tag
