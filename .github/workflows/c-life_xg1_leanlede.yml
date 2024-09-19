@@ -16,9 +16,9 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/c-life_xg1.config
-  DIY_P1_SH: script/diy-part1_clifexg1.sh
-  DIY_P2_SH: script/diy-part2_clifexg1.sh
+  CONFIG_FILE: config/lede_c-life_xg1.config
+  DIY_P1_SH: script/diy-part1_lede_clifexg1.sh
+  DIY_P2_SH: script/diy-part2_lede_clifexg1.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: false
