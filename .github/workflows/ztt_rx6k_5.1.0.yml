@@ -11,7 +11,25 @@ name: build immortalwrt ZTT RX6000
 
 on: 
   workflow_dispatch:
-
+    inputs:
+      redledgpio:
+        type: string
+        default: 17
+      redledgpiohighlow:
+        type: string
+        default: GPIO_ACTIVE_HIGH
+      greenledgpio:
+        type: string
+        default: 15
+      greenledgpiohighlow:
+        type: string
+        default: GPIO_ACTIVE_LOW
+      blueledgpio:
+        type: string
+        default: 13
+      blueledgpiohighlow:
+        type: string
+        default: GPIO_ACTIVE_LOW
 env:
   REPO_URL: https://github.com/vb1980/padavanonly_immortalwrt.git
   REPO_BRANCH: mt7915_mtwifi
@@ -68,6 +86,16 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
+    - name: Set Led GPIO
+      run: |
+        cd $GITHUB_WORKSPACE/openwrt/target/linux/ramips/dts
+        sed -i "29s/17/${{ github.event.inputs.redledgpio }}/" ./mt7621_ztt_rx6k.dts
+        sed -i "29s/GPIO_ACTIVE_HIGH/${{ github.event.inputs.redledgpiohighlow }}/" ./mt7621_ztt_rx6k.dts
+        sed -i "34s/15/${{ github.event.inputs.greenledgpio }}/" ./mt7621_ztt_rx6k.dts
+        sed -i "34s/GPIO_ACTIVE_LOW/${{ github.event.inputs.greenledgpiohighlow }}/" ./mt7621_ztt_rx6k.dts
+        sed -i "39s/13/${{ github.event.inputs.blueledgpio }}/" ./mt7621_ztt_rx6k.dts
+        sed -i "39s/GPIO_ACTIVE_HIGH/${{ github.event.inputs.blueledgpiohighlow }}/" ./mt7621_ztt_rx6k.dts
+        
     - name: Load cache
       uses: klever1988/cachewrtbuild@main
       with:
