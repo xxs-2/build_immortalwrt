@@ -16,16 +16,16 @@ sed -i 's/192.168.6.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 sed -i 's/ImmortalWrt/JCG-Q20/g' package/base-files/files/bin/config_generate
 
 # 修改闭源驱动2G wifi名称
-sed -i 's/SSID1=CR660X_2.4G/SSID1=JCG-Q20/g' package/emortal/mtkhqos_util/files/mt7615.1.2G.dat
+sed -i 's/SSID1=CR660X_2.4G/SSID1=school-2.4G/g' package/emortal/mtkhqos_util/files/mt7615.1.2G.dat
 
 # 修改闭源驱动5G wifi名称
-sed -i 's/SSID1=Openwrt_5G/SSID1=JCG-Q20-5G/g' package/emortal/mtkhqos_util/files/mt7615.1.5G.dat
+sed -i 's/SSID1=Openwrt_5G/SSID1=school-5G/g' package/emortal/mtkhqos_util/files/mt7615.1.5G.dat
 
 # 修改闭源驱动5G wifi信道
 sed -i 's/Channel=44/Channel=149/g' package/emortal/mtkhqos_util/files/mt7615.1.5G.dat
 
 # 添加个性信息
-#sed -i 's/22.5.5/22.5.5 by nanchuci/g' ./package/lean/default-settings/files/zzz-default-settings
+#sed -i 's/22.5.5/22.5.5 by/g' ./package/lean/default-settings/files/zzz-default-settings
 
 # fix luci-app-easymesh
 #sed -i 's/kmod-batman-adv +wpad-openssl/kmod-batman-adv +wpad-basic-wolfssl/g' feeds/luci/applications/luci-app-easymesh/Makefile
@@ -183,3 +183,10 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 #添加smartdns
 #git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 #git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+
+#添加校园网相关
+git clone https://github.com/CHN-beta/rkp-ipid package/rkp-ipid
+git clone https://github.com/Zxilly/UA2F package/UA2F
+git clone https://github.com/lucikap/luci-app-ua2f.git package/luci-app-ua2f
+
+
